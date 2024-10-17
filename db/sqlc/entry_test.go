@@ -82,7 +82,7 @@ func TestListEntry(t *testing.T) {
 		createRandomEntry(t)
 	}
 
-	arg := ListAccountsParams{
+	arg := ListEntryParams{
 		Limit:  5,
 		Offset: 5,
 	}
