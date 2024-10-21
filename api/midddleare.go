@@ -42,7 +42,8 @@ func authMiddleware(tokenMaker token.Maker) gin.HandlerFunc {
 			ctx.AbortWithStatusJSON(http.StatusUnauthorized, errorResponse(err))
 			return
 		}
-		ctx.Set(authorizationHeaderKey, payload)
+		
+		ctx.Set(authorizationPayloadKey, payload)
 		ctx.Next()
 	}
 }
