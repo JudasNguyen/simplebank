@@ -194,3 +194,21 @@ Also have a look at the [FAQ](FAQ.md).
 ---
 
 Looking for alternatives? [https://awesome-go.com/#database](https://awesome-go.com/#database).
+
+
+// {
+// 	"Version": "2012-10-17",
+// 	"Statement": [
+// 		{
+// 			"Effect": "Allow",
+// 			"Principal": {
+// 				"Federated": "arn:aws:iam::043309343501:oidc-provider/token.actions.githubusercontent.com"
+// 			},
+// 			"Action": "sts:AssumeRoleWithWebIdentity",
+// 			"Condition": {
+// 				"StringEquals": {
+// 					"token.actions.githubusercontent.com:sub": "repo:JudasNguyen/simplebank:ref:refs/heads/*"
+// 				}
+// 			}
+// 		}
+// 	]
