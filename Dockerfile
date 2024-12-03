@@ -1,5 +1,6 @@
 # Build stage
 FROM golang:1.23-alpine3.20 AS builder
+
 WORKDIR /app
 COPY . .
 
@@ -15,16 +16,21 @@ RUN ls -al /app
 
 # Run stage
 FROM alpine:3.20
+
 WORKDIR /app
 
-# Copy the necessary files from the builder stage
+# Copy necessary files from the builder stage
 COPY --from=builder /app/main .
 COPY --from=builder /app/migrate ./migrate
-COPY app.env .
-COPY wait-for.sh .
-COPY start.sh .
-COPY db/migration ./migration
+COPY --from=builder /app/db/migration ./migration
+COPY --from=builder /app/app.env .
+COPY --from=builder /app/wait-for.sh .
+COPY --from=builder /app/start.sh .
 
+# Set executable permissions for the scripts
+RUN chmod +x /app/start.sh /app/wait-for.sh
+
+# Expose the port and set the entrypoint and command
 EXPOSE 8080
-CMD [ "/app/main" ]
-ENTRYPOINT [ "/app/start.sh" ]
+ENTRYPOINT ["/app/start.sh"]
+CMD ["/app/main"]
